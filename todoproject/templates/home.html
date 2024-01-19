@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid" style="background-color: #8e44ad; color: #fff;">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box-banner text-center py-5 shadow" style="background: linear-gradient(45deg, #3498db, #e74c3c, #9b59b6); -webkit-background-clip: text; color: transparent;">
+        <div class="banner-text">
+          <h1 class="mb-4">
+            <span class="emphasis" style="font-family: 'Cursive', sans-serif; font-size: 2.5rem;">
+              𝓉<span style="color: #e74c3c;">O-</span>𝓓𝓸 𝓂𝓪𝓰𝓲𝓬 𝓣𝓸𝓾𝓬𝓱 𝓨𝓸𝓾𝓻 𝓓𝓪𝓲𝓵𝔂
+            </span>
+            𝓡𝓮𝓶𝓲𝓷𝓭𝓮𝓻 🌟✨
+          </h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-6">
+      <form method="POST" class="mb-3 shadow p-4 rounded" style="background-color: #fff;">
+        {% csrf_token %}
+
+        <div class="form-group">
+          <label for="task">📝 Task Name:</label>
+          <input type="text" class="form-control" name="task" id="task" placeholder="Enter task name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="priority">🌟 Priority:</label>
+          <input type="text" class="form-control" name="priority" id="priority" placeholder="Enter priority" required>
+        </div>
+
+        <div class="form-group">
+          <label for="date">📅 Date:</label>
+          <input type="date" class="form-control" name="date" id="date" placeholder="Enter date" required>
+        </div>
+
+        <button type="submit" class="btn btn-success">✅ Submit</button>
+      </form>
+    </div>
+
+    <div class="col-md-6">
+      <h4 class="mb-3">📋 TASKS TO BE COMPLETED</h4>
+      {% for task in task1 %}
+      <div class="shadow card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">{{ task.name }}</h5>
+          <p class="mb-1"><b>Priority:</b> {{ task.priority }}</p>
+          <p><b>Date:</b> {{ task.date }}</p>
+          <div class="btn-group">
+            <a class="btn btn-danger" href="{% url 'delete' task.id %}">✅ Done😊</a>
+            <a class="btn btn-success" href="{% url 'update' task.id %}">✏️ Update✅</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
